@@ -48,6 +48,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # 注册自己定义的中间件
+    # 'news163.middleware.MyMiddleware',
 ]
 
 ROOT_URLCONF = 'news163.urls'
@@ -77,7 +79,7 @@ WSGI_APPLICATION = 'news163.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'new',
+        'NAME': 'django_test',
         'USER': 'root',
         'PASSWORD': '123456',
         'HOST': '127.0.0.1',
