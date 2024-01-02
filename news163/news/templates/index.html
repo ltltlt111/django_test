@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>首页</title>
+    <link rel="stylesheet" href="/static/css/semantic.css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="/static/css/index.css" media="screen" title="no title" charset="utf-8">
+  </head>
+  <body>
+   {% include 'nav.html' %}
+    <div class="ui basic segment body container">
+      <div class="ui basic segment container topcontent" style="border:none">
+        <div class="ui horizontal basic segments" style="border:none;">
+          <div class="ui basic segment topleft" style="background: url('{{news_data_list.0.img_url}}');background-size:cover;background-repeat: no-repeat;" >
+            <a href="#" class="ui circular red  button" style="width:80px;height:35px;padding:0px;padding-top:10px;">今日热闻</a>
+            <div class="ui basic segment title">
+                 <p style="color:#fff;font-size:28px;margin-left:8px;"><a href="{% url 'detail' news_data_list.0.id  %}" style="color: white;text-decoration: none;" onmouseover="this.style.color='red'" onmouseout="this.style.color='white'" onclick="this.style.color='red'">{{ news_data_list.0.title }}</a></p>
+            </div>
+          </div>
+          <div class="ui basic segment topright" >
+                <div class="ui  segment" style="border:solid red 1px;">
+                  <p>
+                    <a href="{% url 'detail' news_data_list.0.id  %}" style="color: black;text-decoration: none;" onmouseover="this.style.color='red'" onmouseout="this.style.color='black'" onclick="this.style.color='red'">{{ news_data_list.0.title }}</a>
+                  </p>
+                  <span style="color:rgb(195, 200, 194)">
+                      {% if news_data_list.0.publish_time %}
+                          {{ news_data_list.0.publish_time }}
+                      {% else %}
+                          2023/12/12 17:02:20
+                      {% endif %}
+                  </span>
+                </div>
+                {% for item in news_data_list|slice:"2:4" %}
+                    <div class="ui segment">
+                  <p>
+                      <a href="{% url 'detail' item.id %}" style="color: black;text-decoration: none;" onmouseover="this.style.color='red'" onmouseout="this.style.color='black'" onclick="this.style.color='red'">{{ item.title }}</a>
+                  </p>
+                  <span style="color:rgb(195, 200, 194)">
+                    {% if item.publish_time %}
+                        {{ item.publish_time }}
+                    {% else %}
+                        2023/12/12 17:02:20
+                    {% endif %}
+                  </span>
+                </div>
+                {% endfor %}
+
+
+          </div>
+        </div>
+      </div>
+      <div class="ui  grid container">
+          {% for item in news_data_list|slice:"4:8" %}
+            <div class="four wide column">
+                <div class="ui basic segment" style="background:url('{{ item.img_url }}');background-size: cover;
+                     background-repeat: no-repeat;">
+                    <div class="ui basic segment title">
+                        <p style="color:#fff;font-size:18px;margin-left:0px;">
+                           <a href="{% url 'detail' item.id  %}" style="color: white;text-decoration: none;" onmouseover="this.style.color='red'" onmouseout="this.style.color='white'" onclick="this.style.color='red'">{{ item.title }}</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+          {% endfor %}
+      </div>
+
+      <div class="ui horizontal basic segments bottomcontent">
+        <div class="ui segment bottomleft" style="border:none;box-shadow:none;">
+            {% for item in news_data_list|slice:"8:13" %}
+                <div class="ui segment article" style="border:none;box-shadow:none;">
+                    <div class="ui image">
+                        <img src="{{ item.img_url }}" alt=""/>
+                    </div>
+                    <div class="ui segment articlecontent" style="border:none;box-shadow:none;">
+                        <h3><b><a href="" style="color: black;text-decoration: none;" onmouseover="this.style.color='red'" onmouseout="this.style.color='black'" onclick="this.style.color='red'">{{ item.title }}</a></b></h3>
+                        <p>
+                            {% if item.keywords %}
+                                {{ item.keywords }}
+                            {% else %}
+                                点击查看详情
+                            {% endif %}
+                        </p>
+                        <span style="color:rgb(206, 208, 204);position:absolute;transform:translate(0,100%);bottom:10%">32分钟前</span>
+                    </div>
+                </div>
+            {% endfor %}
+          <button type="button" name="button" class="ui inverted  red huge button" style="width:200px;height:40px;margin-left:300px;margin-top:30px;padding-top:8px;">浏览更多</button>
+        </div>
+        <div class="ui segment bottomright" style="border:none;box-shadow:none;">
+          <div class="ui red segment best">
+            <h4 class="ui center aligned header"><b>编辑推荐</b></h4>
+              {% for item in news_data_list|slice:"13:16" %}
+                  <div class="ui segment top3" style="background:url('{{ item.img_url }}');
+                          background-size:cover;background-repeat:no-repeat;border-radius:0;">
+                      <div class="sidebutton">
+                          {% if forloop.counter == 1 %}
+                              <img src="/static/images/index/redtag.png" alt=""/>
+                              <p>Top1</p>
+                          {% else %}
+                              {% if forloop.counter == 2 %}
+                                  <img src="/static/images/index/yellowtag.png" alt=""/>
+                                  <p>Top2</p>
+                              {% else %}
+                                  <img src="/static/images/index/bluetag.png" alt=""/>
+                                  <p>Top3</p>
+                              {% endif %}
+                          {% endif %}
+                      </div>
+                      <div class="ui basic segment title" style="height:40px;padding-top:2px;">
+                          <p style="color:#fff;font-size:14px;margin-left:0px;">
+                             <a href="" style="color: white;text-decoration: none;" onmouseover="this.style.color='red'" onmouseout="this.style.color='white'" onclick="this.style.color='red'">{{ item.title }}</a>
+                          </p>
+                      </div>
+                  </div>
+              {% endfor %}
+              {% for item in news_data_list|slice:"16:24" %}
+                  <div class="ui segment bestlast">
+                      <img src="static/images/index/Triangle.png" alt=""/>
+                      <p>
+                         <a href="{% url 'detail' item.id %}" style="color: black;text-decoration: none;" onmouseover="this.style.color='red'" onmouseout="this.style.color='black'" onclick="this.style.color='red'">{{ item.title }}</a>
+                      </p>
+                      <span>3分钟前</span>
+                  </div>
+              {% endfor %}
+            <div class="ui image">
+              <img src="/static/images/index/ad.png" alt="" style="width:300px;"/>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% include 'footer.html' %}
+  </body>
+</html>

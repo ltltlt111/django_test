@@ -1,0 +1,38 @@
+<div class="ui red basic segment  topmenu">
+    <div class="ui borderless menu container" style="border:0;box-shadow:none;">
+        <div class="header item" style="margin-right:10px;">
+            <div class="ui image">
+                <img src="/static/images/index/zhiribao.png" alt=""/>
+            </div>
+        </div>
+        <div class="item" style="margin-right:10px;">
+            <a href="{% url 'index' %}">首页</a>
+        </div>
+        {% for item in news_categories %}
+            <div class="item" style="margin-right:10px;">
+            <a href="{% url 'category' item.id %}">{{ item.news_type }}</a>
+        </div>
+        {% endfor %}
+
+
+        <div class="right menu login">
+            <div class="item">
+                <a href="{% url 'login' %}">
+                    <div class="ui image">
+                        <img src="/static/images/index/login.png" alt=""/>
+                    </div>
+                    <p style="margin-right:10px;margin-top:6px;color:black;">登录</p>
+                </a>
+
+            </div>
+            <div class="item">
+                <a href="{% url 'register' %}">
+                    <div class="ui image">
+                        <img src="/static/images/index/register.png" alt=""/>
+                    </div>
+                    <p style="color:black;">注册</p>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

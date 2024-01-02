@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>分类页</title>
+    <link rel="stylesheet" href="/static/css/semantic.css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="/static/css/category.css" media="screen" title="no title" charset="utf-8">
+  </head>
+  <body>
+    {% include 'nav.html' %}
+    <div class="ui basic segment container">
+      <div class="ui horizontal basic segments bodycontent">
+        <div class="ui segment bodyleft" style="border:none;box-shadow:none;">
+            {% for item in news_data_list|slice:"1:6" %}
+                <div class="ui segment article" style="border:none;box-shadow:none;">
+                    <div class="ui image">
+                        <img src="{{ item.img_url }}" alt=""/>
+                    </div>
+                    <div class="ui segment articlecontent" style="border:none;box-shadow:none;">
+                        <h3><b>
+                            <a href="{% url 'detail' item.id %}" style="color: black;text-decoration: none;" onmouseover="this.style.color='red'" onmouseout="this.style.color='black'" onclick="this.style.color='red'">{{ item.title }}</a>
+                        </b></h3>
+                        <p>
+                            {% if item.keywords %}
+                                {{ item.keywords }}
+                            {% else %}
+                                点击查看详情
+                            {% endif %}
+                        </p>
+                        <span style="color:rgb(206, 208, 204);position:absolute;transform:translate(0,100%);bottom:10%">32分钟前</span>
+                    </div>
+                </div>
+            {% endfor %}
+          <button type="button" name="button" class="ui inverted  red huge button" style="width:200px;height:40px;margin-left:300px;margin-top:30px;padding-top:8px;">浏览更多</button>
+        </div>
+        <div class="ui segment bodyright" style="border:none;box-shadow:none;">
+          <div class="ui red segment best">
+            <h4 class="ui center aligned header"><b>编辑推荐</b></h4>
+              {% for item in news_data_list|slice:"6:9" %}
+                  <div class="ui segment top3" style="background:url('{{ item.img_url }}');
+            background-size:cover;background-repeat:no-repeat;border-radius:0;">
+                      <div class="sidebutton">
+                          {% if forloop.counter == 1 %}
+                              <img src="/static/images/index/redtag.png" alt=""/>
+                              <p>Top1</p>
+                          {% else %}
+                              {% if forloop.counter == 2 %}
+                                  <img src="/static/images/index/yellowtag.png" alt=""/>
+                                  <p>Top2</p>
+                              {% else %}
+                                  <img src="/static/images/index/bluetag.png" alt=""/>
+                                  <p>Top3</p>
+                              {% endif %}
+                          {% endif %}
+                      </div>
+                      <div class="ui basic segment title" style="height:40px;padding-top:2px;">
+                          <p style="color:#fff;font-size:14px;margin-left:0px;">
+                              <a href="{% url 'detail' item.id %}" style="color: white;text-decoration: none;" onmouseover="this.style.color='red'" onmouseout="this.style.color='white'" onclick="this.style.color='red'">{{ item.title }}</a>
+                          </p>
+                      </div>
+                  </div>
+              {% endfor %}
+
+            {% for item in news_data_list|slice:"9:16" %}
+                <div class="ui segment bestlast">
+                    <img src="/static/images/index/Triangle.png" alt=""/>
+                    <p>
+                        <a href="{% url 'detail' item.id %}" style="color: black;text-decoration: none;" onmouseover="this.style.color='red'" onmouseout="this.style.color='black'" onclick="this.style.color='red'">{{ item.title }}</a>
+                    </p>
+                    <span>3分钟前</span>
+                </div>
+            {% endfor %}
+            <div class="ui image">
+              <img src="/static/images/index/ad.png" alt="" style="width:300px;"/>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% include 'footer.html' %}
+  </body>
+</html>
